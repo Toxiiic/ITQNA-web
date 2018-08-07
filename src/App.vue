@@ -8,6 +8,19 @@
   </div>
 </template>
 
+<script>
+import NavBar from '@/components/NavBar.vue'
+import Home from '@/views/Home.vue'
+
+export default {
+  components: {
+    NavBar,
+    Home
+  }
+}
+</script>
+
+
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
