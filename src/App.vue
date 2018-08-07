@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <nav-bar></nav-bar>
+    <div style="height:62px">&nbsp;</div>
     <router-view></router-view>
   </div>
 </template>
@@ -32,6 +33,7 @@ export default {
 
 <style lang="scss">
 $brand-color: #1890ff;
+$shadow-color: #f4f8fb;
 
 ul {
   padding: 0;
@@ -44,6 +46,8 @@ ul {
   -moz-osx-font-smoothing: grayscale;
   // text-align: center;
   color: #2c3e50;
+  background: #f2f6f9;
+
 }
 #nav {
   padding: 30px;
@@ -71,6 +75,9 @@ ul {
 }
 .vt {
   vertical-align: top;
+}
+.w-full {
+  width: 100%;
 }
 
 .page-wrapper {

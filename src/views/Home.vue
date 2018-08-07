@@ -1,6 +1,6 @@
 <template>
   <div class="home page-wrapper">
-    <ul>
+    <ul class="home-feed">
       <li>
         <answer></answer>
       </li>
@@ -27,3 +27,15 @@ export default {
   }
 }
 </script>
+
+
+<style lang="scss">
+ul.home-feed {
+  li {
+    padding: 10px;
+    margin-top: 10px;
+    background: white;
+  }
+}
+</style>
+
