@@ -1,6 +1,5 @@
 <template>
-  <div class="home">
-    <nav-bar></nav-bar>
+  <div class="home page-wrapper">
     <ul>
       <li>
         <answer></answer>

@@ -5,9 +5,9 @@
             <span>孟德尔，</span>
             <span>帧数警察</span>
         </div>
-        <div>
+        <router-link v-if="showQuestion" to="/question">
             如何评价任天堂Labo发布第三弹——海陆空驾驶套装 「Vehicle KIT」？
-        </div>
+        </router-link>
         <div>
             应该是早就做好了，没有首发放出来是怕零售商积货。把它放到第二批是有考量的，第二批虽然作为电子游戏的游戏性更高，但是耐用性比不过第一批。一个主体搭配3种操作方式很棒，但也提高了损坏的概率。我觉得比较理想的方式是在零售商处设立维修点，提供白板，根据客户需求随时打印零件替换，当然我这也是纸上谈兵，维修点少了没意义，多了不合算。
         </div>
@@ -19,3 +19,14 @@
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        showQuestion: {
+            default: true
+        }
+    }
+}
+</script>
+

@@ -1,32 +1,48 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <nav-bar></nav-bar>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
 import Home from '@/views/Home.vue'
+import { user } from '@/common/api'
+import { mapMutations } from 'vuex'
 
 export default {
   components: {
     NavBar,
     Home
+  },
+  mounted () {
+    user.getLoginState(res => {
+      this.setLogined(res.logined)
+    })
+  },
+  methods: {
+    ...mapMutations([
+      'setLogined'
+    ]),
   }
 }
 </script>
 
 
 <style lang="scss">
+$brand-color: #1890ff;
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  // text-align: center;
   color: #2c3e50;
 }
 #nav {
@@ -39,4 +55,28 @@ export default {
     }
   }
 }
+
+.fullscreen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: white;
+  display: block;
+  top: 0;
+}
+
+.ib {
+  display: inline-block;
+  vertical-align: middle;
+}
+.vt {
+  vertical-align: top;
+}
+
+.page-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+
 </style>
