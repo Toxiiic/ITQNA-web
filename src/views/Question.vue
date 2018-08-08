@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import Button from "ant-design-vue";
 import Answer from "@/components/Answer";
 
 export default {

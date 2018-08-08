@@ -14,13 +14,11 @@
 
 
 <script>
-import Button from 'ant-design-vue'
 import { user } from '@/common/api'
 import { mapGetters } from 'vuex';
 
 export default {
     components: {
-        Button
     },
     beforeRouteEnter (to, from, next) {
         //每当进入此页面时，发出请求是否已登陆
