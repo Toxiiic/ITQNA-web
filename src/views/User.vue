@@ -2,8 +2,8 @@
     <div class="user">
         <img src="" alt="">
         <div>
-            <div>孟德尔</div>
-            <div>发送到发送到发送到发送到发</div>
+            <div>{{user.name}}</div>
+            <div>{{user.motto}}</div>
         </div>
         
         <a-button></a-button>
@@ -20,13 +20,20 @@ import { mapGetters } from 'vuex';
 export default {
     components: {
     },
+    data () {
+        return {
+            user: {}
+        }
+    },
     mounted () {
-
+        user.show(this.userId, res => {
+            this.user = res.data
+        })
     },
     computed: {
-        // ...mapGetters([
-        //     'logined'
-        // ])
+        ...mapGetters([
+            'userId'
+        ])
     }
 }
 </script>

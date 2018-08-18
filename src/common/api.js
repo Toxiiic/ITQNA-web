@@ -41,5 +41,10 @@ export const user = {
             }
         }).then(res => callback(res))
     }
+    ,
+
+    show (id, callback) {
+        axios.get(host + `/api/users/${id}`).then(res => callback(res))
+    }
 
 }

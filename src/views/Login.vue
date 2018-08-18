@@ -65,7 +65,7 @@ export default {
     onSubmitLogin() {
         user.login(this.loginForm.getFieldsValue(), (res) => {
             if(res.data.success) {
-                // this.setLogined(true)
+                this.setUserId(res.data.userId)
                 window.localStorage.setItem('token', res.data.token)
                 this.$router.push('user')
             }
@@ -76,7 +76,7 @@ export default {
       console.log(this.registerForm.getFieldsValue());
     },
     ...mapMutations([
-        'setLogined'
+        'setUserId'
     ])
   }
 };
