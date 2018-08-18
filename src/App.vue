@@ -10,7 +10,8 @@
 import NavBar from '@/components/NavBar.vue'
 import Home from '@/views/Home.vue'
 import { user } from '@/common/api'
-import { mapMutations } from 'vuex'
+import { verifyTokenAndSaveId } from './common/util'
+import { mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -18,14 +19,17 @@ export default {
     Home
   },
   mounted () {
-    user.getLoginState(res => {
-      this.setLogined(res.logined)
-    })
+    verifyTokenAndSaveId()
   },
   methods: {
     ...mapMutations([
-      'setLogined'
+      'setUserId'
     ]),
+  },
+  computed: {
+    ...mapGetters([
+      'userId'
+    ])
   }
 }
 </script>

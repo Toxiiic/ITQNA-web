@@ -48,3 +48,9 @@ export const user = {
     }
 
 }
+
+export const question = {
+    create (formData, callback) {
+        axios.post(host + `/api/questions`, formData).then(res => callback(res))
+    }
+}
