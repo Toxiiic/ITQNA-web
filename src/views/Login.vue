@@ -8,7 +8,7 @@
             <a-tabs class="tabs" defaultActiveKey="1">
                 <a-tab-pane tab="登陆" key="1" @click="loginTab = true">
                     <a-form @submit="onSubmitLogin" :autoFormCreate="form => this.loginForm=form">
-                        <a-form-item fieldDecoratorId="nickname">
+                        <a-form-item fieldDecoratorId="username">
                             <a-input type="text" placeholder="用户名">
                                 <a-icon slot="prefix" type="user" />
                             </a-input>
@@ -23,7 +23,7 @@
                 </a-tab-pane>
                 <a-tab-pane tab="注册" key="2" @click="loginTab = false">
                     <a-form @submit="onSubmitRegister" :autoFormCreate="form => this.registerForm=form">
-                        <a-form-item fieldDecoratorId="nickname">
+                        <a-form-item fieldDecoratorId="username">
                             <a-input type="text" placeholder="用户名">
                                 <a-icon type="user" />
                             </a-input>
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { user } from '@/common/api'
+import { mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -55,13 +57,27 @@ export default {
       loginTab: true
     };
   },
+  mounted () {
+    user.getUserInfo(3)
+  },
+
   methods: {
     onSubmitLogin() {
-      console.log(this.loginForm.getFieldsValue());
+        user.login(this.loginForm.getFieldsValue(), (res) => {
+            if(res.data.success) {
+                // this.setLogined(true)
+                window.localStorage.setItem('token', res.data.token)
+                this.$router.push('user')
+            }
+        })
+        console.log(this.loginForm.getFieldsValue());
     },
     onSubmitRegister() {
       console.log(this.registerForm.getFieldsValue());
-    }
+    },
+    ...mapMutations([
+        'setLogined'
+    ])
   }
 };
 </script>

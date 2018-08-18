@@ -1,5 +1,5 @@
 <template>
-    <div class="user" v-if="logined">
+    <div class="user">
         <img src="" alt="">
         <div>
             <div>孟德尔</div>
@@ -20,18 +20,13 @@ import { mapGetters } from 'vuex';
 export default {
     components: {
     },
-    beforeRouteEnter (to, from, next) {
-        //每当进入此页面时，发出请求是否已登陆
-        next(vm => {
-            if(!vm.logined) {
-                vm.$router.push('login')
-            }
-        })
+    mounted () {
+
     },
     computed: {
-        ...mapGetters([
-            'logined'
-        ])
+        // ...mapGetters([
+        //     'logined'
+        // ])
     }
 }
 </script>

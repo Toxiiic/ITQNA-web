@@ -21,7 +21,10 @@ export default new Router({
     {
       path: '/user',
       name: 'user',
-      component: User
+      component: User,
+      meta: {
+        requireAuth: true
+      }
     },
     {
       path: '/login',
