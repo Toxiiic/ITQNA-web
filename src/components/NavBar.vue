@@ -39,16 +39,17 @@ export default {
     data () {
         return {
             confirmLoading: false,
-            questionModalOpen: true
+            questionModalOpen: false
         }
     },
     methods: {
         submitQuestion () {
-            // this.confirmLoading = true
+            this.confirmLoading = true
             let formData = this.questionForm.getFieldsValue()
             formData.ask_user_id = this.userId
             question.create(formData, res => {
                 this.confirmLoading = false
+                this.questionModalOpen = false
             })
         }
     },
