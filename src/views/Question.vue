@@ -30,10 +30,22 @@
 
 <script>
 import Answer from "@/components/Answer";
+import { question, answer } from '@/common/api'
 
 export default {
   components: {
     Answer
+  },
+  beforeRouteEnter (to, from, next) {
+      next(vm => {
+        // console.log(vm.$route.params)
+        question.show(vm.$route.params.qs_id, res => {
+            this.qsData = res.data
+        })
+        answer.index(vm.$route.params.qs_id, res => {
+            this.qsData = res.data
+        })
+      })
   }
 };
 </script>

@@ -1,15 +1,18 @@
 <template>
   <div class="home page-wrapper">
     <ul class="home-feed">
-      <li>
+      <li v-for="(qa, index) in QAs" :key="index">
+        <answer
+          :onlyShowQuestion="!qa.content"
+          :displayData="qa"
+        ></answer>
+      </li>
+      <!-- <li>
         <answer></answer>
       </li>
       <li>
         <answer></answer>
-      </li>
-      <li>
-        <answer></answer>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
@@ -18,12 +21,30 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import Answer from '@/components/Answer.vue'
+import { question, answer } from '@/common/api'
 
 export default {
   name: 'home',
   components: {
     HelloWorld,
     Answer
+  },
+  data () {
+    return {
+      QAs: []
+    }
+  },
+  mounted () {
+    question.noAnswer(res => {
+      let questions = res.data
+      
+      answer.index(res => {
+        let answers = res.data
+
+        //区分q a：有content的是a
+        this.QAs = questions.concat(questions, answers).shuffle()
+      })
+    })
   }
 }
 </script>

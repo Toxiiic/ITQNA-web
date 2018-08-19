@@ -2,16 +2,18 @@
     <div class="answer">
         <div class="author">
             <img class="avatar" src="https://pic1.zhimg.com/50/v2-b5d3d6f8403bbb284b6afb876b134527_xs.jpg 2x" alt="">
-            <span class="name">孟德尔，</span>
-            <span class="motto">帧数警察</span>
+            <span class="name">{{displayData.user_name}}</span>
+            <span class="motto">{{displayData.user_motto}}</span>
         </div>
-        <router-link class="title" v-if="showQuestion" to="/question">
-            如何评价任天堂Labo发布第三弹——海陆空驾驶套装 「Vehicle KIT」？
+        <router-link class="title" v-if="showQuestion" :to="'/question/'+displayData.qs_id">
+            <!-- 如何评价任天堂Labo发布第三弹——海陆空驾驶套装 「Vehicle KIT」？ -->
+            {{displayData.title}}
         </router-link>
-        <div class="content">
-            应该是早就做好了，没有首发放出来是怕零售商积货。把它放到第二批是有考量的，第二批虽然作为电子游戏的游戏性更高，但是耐用性比不过第一批。一个主体搭配3种操作方式很棒，但也提高了损坏的概率。我觉得比较理想的方式是在零售商处设立维修点，提供白板，根据客户需求随时打印零件替换，当然我这也是纸上谈兵，维修点少了没意义，多了不合算。
+        <div class="content" v-if="!onlyShowQuestion">
+            <!-- 应该是早就做好了，没有首发放出来是怕零售商积货。把它放到第二批是有考量的，第二批虽然作为电子游戏的游戏性更高，但是耐用性比不过第一批。一个主体搭配3种操作方式很棒，但也提高了损坏的概率。我觉得比较理想的方式是在零售商处设立维修点，提供白板，根据客户需求随时打印零件替换，当然我这也是纸上谈兵，维修点少了没意义，多了不合算。 -->
+            {{displayData.content}}
         </div>
-        <div>
+        <div v-if="!onlyShowQuestion">
             <div class="answer-oprt-button"><a-icon type="caret-up"></a-icon> 赞同 61</div>
             <div class="answer-oprt-button"><a-icon type="caret-down"></a-icon></div>
             <div class="answer-oprt-button"><a-icon type="message"></a-icon> 47条评论</div>
@@ -25,7 +27,30 @@ export default {
     props: {
         showQuestion: {
             default: true
-        }
+        },
+        onlyShowQuestion: {
+            default: false
+        },
+        /**
+         * 回答需要
+         * title
+         * content
+         * ans_id
+         * qs_id
+         * user_name
+         * user_head_url
+         * user_motto
+         * likes
+         * 
+         * 问题需要
+         * title
+         * qs_id
+         * user_name
+         * user_head_url
+         * user_motto
+         * 
+         * */
+        displayData: {}
     }
 }
 </script>
@@ -40,6 +65,7 @@ export default {
             .name {
 font-size: 15px;
     font-weight: 500;
+        margin-right: 10px;
             }
             .motto {
 

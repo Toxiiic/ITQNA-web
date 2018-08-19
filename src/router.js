@@ -32,7 +32,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/question',
+      path: '/question/:qs_id',
       name: 'question',
       component: Question
     }
