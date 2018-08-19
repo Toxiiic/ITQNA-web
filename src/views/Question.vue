@@ -2,9 +2,10 @@
     <div class="question">
         <div class="question-panel">
             <div class="page-wrapper">
-                <div class="title">如何评价任天堂Labo发布第三弹——海陆空驾驶套装</div>
+                <div class="title">{{qsData.title}}</div>
                 <div class="desc">
-                    发售日2018.9.14，正好去年下半年官方独家ND一周年。
+                    <!-- 发售日2018.9.14，正好去年下半年官方独家ND一周年。 -->
+                    {{qsData.desc}}
                 </div>
                 <div>
                     <a-button style="margin-right:10px" type="primary">关注问题</a-button> 
@@ -13,15 +14,12 @@
             </div>
         </div>
         <div class="page-wrapper">
-            <ul class="answer-list">
-                <li>
-                    <answer :showQuestion="false"></answer>
-                </li>
-                <li>
-                    <answer :showQuestion="false"></answer>
-                </li>
-                <li>
-                    <answer :showQuestion="false"></answer>
+            <ul class="answer-list" v-if="ansData!=null">
+                <li v-for="(ans, index) in ansData" :key="index">
+                    <answer
+                    :showQuestion="false"
+                    :displayData="ans"
+                    ></answer>
                 </li>
             </ul>
         </div>
@@ -36,14 +34,20 @@ export default {
   components: {
     Answer
   },
+  data () {
+      return {
+            qsData: {},
+            ansData: null
+      }
+  },
   beforeRouteEnter (to, from, next) {
       next(vm => {
         // console.log(vm.$route.params)
         question.show(vm.$route.params.qs_id, res => {
-            this.qsData = res.data
+            vm.qsData = res.data[0]
         })
-        answer.index(vm.$route.params.qs_id, res => {
-            this.qsData = res.data
+        answer.qsId(vm.$route.params.qs_id, res => {
+            vm.ansData = res.data
         })
       })
   }
