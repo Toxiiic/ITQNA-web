@@ -2,8 +2,18 @@
     <div class="nav-bar">
         <div class="page-wrapper">
             <router-link to="/home" class="ib logo">ITQ&A</router-link>
-            <a-input class="ib search-input" style="width: 300px" placeholder="搜索"></a-input>
-            <a-button class="ib" type="primary" @click="questionModalOpen=true">提问</a-button>
+            <a-input-search
+                class="ib search-input"
+                style="width: 300px"
+                placeholder="搜索"
+                @search="onSearch"
+                enterButton
+                />
+            <a-button
+                class="ib"
+                type="primary"
+                @click="questionModalOpen=true"
+                v-if="userId!=null">提问</a-button>
             <a-modal
                 title="写下你的问题"
                 :visible="questionModalOpen"
@@ -25,7 +35,7 @@
             <!-- <router-link to="/user">
                 <img class="avatar" src="@/assets/logo.png" alt="">
             </router-link> -->
-            <a-dropdown>
+            <a-dropdown v-if="userId!=null">
                 <a class="ant-dropdown-link float-right" href="#">
                     <img class="avatar" :src="headUrl" alt="">
                 </a>
@@ -46,6 +56,7 @@
 import { question, user } from "@/common/api";
 import { logout } from "@/common/util";
 import { mapGetters } from "vuex";
+import router from '@/router'
 
 export default {
   components: {},
@@ -77,6 +88,15 @@ export default {
     onClickLogout () {
         //退出登陆
         logout()
+    },
+    onSearch (value) {
+        // this.$router.go(-1)
+        this.$router.push({
+            path: 'result',
+            query: {
+                searchValue: value
+            }
+        })
     }
   },
   computed: {
@@ -106,7 +126,7 @@ export default {
     object-fit: cover;
     border-radius: 3px;
   }
-  input.search-input {
+  .search-input {
     margin: 0 10px 0 100px;
   }
 }

@@ -83,6 +83,9 @@ export const answer = {
     },
     userLike (userId, cb) {
         axios.get(host + `/api/answers?like_user_id=${userId}`).then(res => cb(res))
+    },
+    search (searchValue, cb) {
+        axios.get(host + `/api/answers?searchValue=${searchValue}`).then(res => cb(res))
     }
 }
 
