@@ -1,7 +1,7 @@
 <template>
     <div class="nav-bar">
         <div class="page-wrapper">
-            <div class="ib logo">ITQ&A</div>
+            <router-link to="/home" class="ib logo">ITQ&A</router-link>
             <a-input class="ib search-input" style="width: 300px" placeholder="搜索"></a-input>
             <a-button class="ib" type="primary" @click="questionModalOpen=true">提问</a-button>
             <a-modal
@@ -92,6 +92,7 @@ export default {
   padding: 8px 0;
   position: fixed;
   width: 100%;
+  z-index: 10;
 
   .logo {
     font-weight: bolder;

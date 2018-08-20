@@ -61,7 +61,8 @@ ul {
   // text-align: center;
   color: #2c3e50;
   background: #f2f6f9;
-
+  min-height: 100vh;
+  padding-bottom: 50px;
 }
 #nav {
   padding: 30px;

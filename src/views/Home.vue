@@ -4,7 +4,7 @@
       <li v-for="(qa, index) in QAs" :key="index">
         <answer
           :onlyShowQuestion="!qa.content"
-          :displayData="qa"
+          :answerData="qa"
         ></answer>
       </li>
       <!-- <li>

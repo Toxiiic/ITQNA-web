@@ -56,13 +56,16 @@ export const question = {
     noAnswer (cb) {
         axios.get(host + `/api/questions?no_answer=true`).then(res => cb(res))
     },
-
+    userAsk (userId, cb) {
+        axios.get(host + `/api/questions?ask_user_id=${userId}`).then(res => cb(res))
+    },
     index (cb) {
         axios.get(host + `/api/questions`).then(res => cb(res))
     },
     show (id, cb) {
         axios.get(host + `/api/questions/${id}`).then(res => cb(res))
     }
+
 }
 
 export const answer = {
@@ -74,6 +77,12 @@ export const answer = {
     },
     qsId (qsId, cb) {
         axios.get(host + `/api/answers?qs_id=${qsId}`).then(res => cb(res))
+    },
+    userId (userId, cb) {
+        axios.get(host + `/api/answers?user_id=${userId}`).then(res => cb(res))
+    },
+    userLike (userId, cb) {
+        axios.get(host + `/api/answers?like_user_id=${userId}`).then(res => cb(res))
     }
 }
 

@@ -33,7 +33,7 @@
                 <li v-for="(ans, index) in ansData" :key="index">
                     <answer
                     :showQuestion="false"
-                    :displayData="ans"
+                    :answerData="ans"
                     ></answer>
                 </li>
             </ul>
