@@ -83,6 +83,9 @@ ul {
 .w-full {
   width: 100%;
 }
+.float-right {
+  float: right;
+}
 
 .page-wrapper {
   max-width: 1000px;

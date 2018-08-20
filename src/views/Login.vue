@@ -23,19 +23,29 @@
                 </a-tab-pane>
                 <a-tab-pane tab="注册" key="2" @click="loginTab = false">
                     <a-form @submit="onSubmitRegister" :autoFormCreate="form => this.registerForm=form">
-                        <a-form-item fieldDecoratorId="username">
+                        <a-form-item fieldDecoratorId="name">
                             <a-input type="text" placeholder="用户名">
-                                <a-icon type="user" />
+                                <a-icon slot="prefix" type="user" />
                             </a-input>
                         </a-form-item>
                         <a-form-item fieldDecoratorId="password">
                             <a-input type="password" placeholder="密码">
-                                <a-icon type="key" />
+                                <a-icon slot="prefix" type="key" />
                             </a-input>
                         </a-form-item>
-                        <a-form-item fieldDecoratorId="password-again">
+                        <!-- <a-form-item fieldDecoratorId="password-again">
                             <a-input type="password" placeholder="确认密码">
-                                <a-icon type="key" />
+                                <a-icon slot="prefix" type="key" />
+                            </a-input>
+                        </a-form-item> -->
+                        <a-form-item fieldDecoratorId="motto">
+                            <a-input type="text" placeholder="一句话签名">
+                                <a-icon slot="prefix" type="edit" />
+                            </a-input>
+                        </a-form-item>
+                        <a-form-item fieldDecoratorId="head_url">
+                            <a-input type="url" placeholder="头像地址">
+                                <a-icon slot="prefix" type="smile-o" />
                             </a-input>
                         </a-form-item>
                         <a-button class="w-full" type="primary" htmlType="submit">注册</a-button>
@@ -74,6 +84,9 @@ export default {
     },
     onSubmitRegister() {
       console.log(this.registerForm.getFieldsValue());
+      user.register(this.registerForm.getFieldsValue(), res => {
+          
+      })
     },
     ...mapMutations([
         'setUserId'

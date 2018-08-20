@@ -1,10 +1,12 @@
 import axios from 'axios'
-import { getCookie, getToken } from './util';
+import { getCookie, getToken, afterLogin } from './util';
 
 
 const host = 'http://localhost:7001'
 
 axios.defaults.withCredentials = true
+
+
 
 export const user = {
     getLoginState () {
@@ -19,20 +21,22 @@ export const user = {
             return res
         })
     },
-    login (formFieldsVal, callback) {
+    login (formFieldsVal, cb) {
         axios.post(host + '/login', formFieldsVal, {
             // headers: {
             //     'x-csrf-token': 'aaa'
             // }
         }).then(res => {
-            callback(res)
+            cb(res)
+            afterLogin(res.data)
         })
     },
-    logout () {
-
-    },
-    register (formFieldsVal) {
-
+    register (formFieldsVal, cb = ()=>{}) {
+        //先增加账号
+        axios.post(host + '/register', formFieldsVal).then(res => {
+            cb(res)
+            afterLogin(res.data)
+        })
     },
     verifyToken (token, callback) {
         axios.get(host + '/verify-token', {
@@ -41,7 +45,6 @@ export const user = {
             }
         }).then(res => callback(res))
     },
-
     show (id, callback) {
         axios.get(host + `/api/users/${id}`).then(res => callback(res))
     }
@@ -66,13 +69,19 @@ export const question = {
 }
 
 export const answer = {
-    create () {
-
+    create (formData, callback) {
+        axios.post(host + `/api/answers`, formData).then(res => callback(res))
     },
     index (cb) {
         axios.get(host + `/api/answers`).then(res => cb(res))
     },
     qsId (qsId, cb) {
         axios.get(host + `/api/answers?qs_id=${qsId}`).then(res => cb(res))
+    }
+}
+
+export const userLikeAnswer = {
+    create (data, callback) {
+        axios.post(host + `/api/ula`, data).then(res => callback(res))
     }
 }

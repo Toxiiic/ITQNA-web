@@ -9,7 +9,22 @@
                 </div>
                 <div>
                     <a-button style="margin-right:10px" type="primary">关注问题</a-button> 
-                    <a-button>写回答</a-button>
+                    <a-button @click="answerModalOpen=true">写回答</a-button>
+                    <a-modal
+                        title="写下你的回答"
+                        :visible="answerModalOpen"
+                        @ok="submitAnswer"
+                        @cancel="answerModalOpen=false"
+                        :confirmLoading="confirmLoading"
+                        okText="提交回答"
+                        cancelText="取消"
+                    >
+                        <a-form :autoFormCreate="form => this.answerForm=form">
+                            <a-form-item fieldDecoratorId="content">
+                                <a-textarea placeholder="写回答"></a-textarea>
+                            </a-form-item>
+                        </a-form>
+                    </a-modal>
                 </div>
             </div>
         </div>
@@ -29,6 +44,7 @@
 <script>
 import Answer from "@/components/Answer";
 import { question, answer } from '@/common/api'
+import { mapGetters } from 'vuex';
 
 export default {
   components: {
@@ -37,20 +53,42 @@ export default {
   data () {
       return {
             qsData: {},
-            ansData: null
+            ansData: null,
+            confirmLoading: false,
+            answerModalOpen: false
       }
   },
   beforeRouteEnter (to, from, next) {
       next(vm => {
-        // console.log(vm.$route.params)
-        question.show(vm.$route.params.qs_id, res => {
-            vm.qsData = res.data[0]
-        })
-        answer.qsId(vm.$route.params.qs_id, res => {
-            vm.ansData = res.data
-        })
+        vm.refreshData(vm)
       })
-  }
+  },
+  methods: {
+      submitAnswer () {
+          this.confirmLoading = true
+            let formData = this.answerForm.getFieldsValue()
+            formData.answer_user_id = this.userId
+            formData.question_id = this.$route.params.qs_id
+            answer.create(formData, res => {
+                this.confirmLoading = false
+                this.answerModalOpen = false
+                this.refreshData(this)
+            })
+      },
+      refreshData (vm) {
+            question.show(vm.$route.params.qs_id, res => {
+                vm.qsData = res.data[0]
+            })
+            answer.qsId(vm.$route.params.qs_id, res => {
+                vm.ansData = res.data
+            })
+      }
+  },
+    computed: {
+        ...mapGetters([
+            'userId'
+        ])
+    }
 };
 </script>
 

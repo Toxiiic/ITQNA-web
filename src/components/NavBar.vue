@@ -22,67 +22,85 @@
                     </a-form-item>
                 </a-form>
             </a-modal>
-            <router-link to="/user">
+            <!-- <router-link to="/user">
                 <img class="avatar" src="@/assets/logo.png" alt="">
-            </router-link>
+            </router-link> -->
+            <a-dropdown>
+                <a class="ant-dropdown-link float-right" href="#">
+                    <img class="avatar" src="@/assets/logo.png" alt="">
+                </a>
+                <a-menu slot="overlay" style="width:200px">
+                    <a-menu-item>
+                        <router-link to="/user">个人主页</router-link>
+                    </a-menu-item>
+                    <a-menu-item>
+                        <a @click="onClickLogout">退出登陆</a>
+                    </a-menu-item>
+                </a-menu>
+            </a-dropdown>
         </div>
     </div>
 </template>
 
 <script>
-import { question } from '@/common/api'
-import { mapGetters } from 'vuex';
+import { question } from "@/common/api";
+import { logout } from "@/common/util";
+import { mapGetters } from "vuex";
 
 export default {
-    components: {
+  components: {},
+  data() {
+    return {
+      confirmLoading: false,
+      questionModalOpen: false
+    };
+  },
+  mounted () {
+
+  },
+  methods: {
+    submitQuestion () {
+      this.confirmLoading = true;
+      let formData = this.questionForm.getFieldsValue();
+      formData.ask_user_id = this.userId;
+      question.create(formData, res => {
+        this.confirmLoading = false;
+        this.questionModalOpen = false;
+      });
     },
-    data () {
-        return {
-            confirmLoading: false,
-            questionModalOpen: false
-        }
-    },
-    methods: {
-        submitQuestion () {
-            this.confirmLoading = true
-            let formData = this.questionForm.getFieldsValue()
-            formData.ask_user_id = this.userId
-            question.create(formData, res => {
-                this.confirmLoading = false
-                this.questionModalOpen = false
-            })
-        }
-    },
-    computed: {
-        ...mapGetters([
-            'userId'
-        ])
+    onClickLogout () {
+        //退出登陆
+        logout()
     }
-}
+  },
+  computed: {
+    ...mapGetters(["userId"])
+  }
+};
 </script>
 
 <style lang="scss">
-    .nav-bar {
-            background: white;
-    box-shadow: 0 10px 20px 0 #f4f8fb;
-    padding: 8px 0;
-    position: fixed;
-    width: 100%;
+.nav-bar {
+  background: white;
+  box-shadow: 0 10px 20px 0 #f4f8fb;
+  padding: 8px 0;
+  position: fixed;
+  width: 100%;
 
-        .logo {
-            font-weight: bolder;
-            font-size: 30px;
-            color: #1890ff;
-        }
-        .avatar {
-                width: 36px;
-        float: right;
-        margin: 5px;
-        }
-        input.search-input {
-            margin: 0 10px 0 100px;
-        }
-    }
+  .logo {
+    font-weight: bolder;
+    font-size: 30px;
+    color: #1890ff;
+  }
+  .avatar {
+    width: 36px;
+    // float: right;
+    margin: 5px;
+  }
+  input.search-input {
+    margin: 0 10px 0 100px;
+  }
+}
 </style>
 
 

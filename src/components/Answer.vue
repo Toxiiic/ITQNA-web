@@ -14,7 +14,11 @@
             {{displayData.content}}
         </div>
         <div v-if="!onlyShowQuestion">
-            <div class="answer-oprt-button"><a-icon type="caret-up"></a-icon> 赞同 61</div>
+            <a-button
+                class="answer-oprt-button"
+                @click="onClickLike">
+                <a-icon type="caret-up"></a-icon> 赞同 {{like_count}}
+            </a-button>
             <div class="answer-oprt-button"><a-icon type="caret-down"></a-icon></div>
             <div class="answer-oprt-button"><a-icon type="message"></a-icon> 47条评论</div>
             <div class="answer-oprt-button"><a-icon type="star-o"></a-icon> 收藏</div>
@@ -23,6 +27,8 @@
 </template>
 
 <script>
+import { userLikeAnswer } from '@/common/api'
+import { mapGetters } from 'vuex';
 export default {
     props: {
         showQuestion: {
@@ -40,7 +46,7 @@ export default {
          * user_name
          * user_head_url
          * user_motto
-         * likes
+         * like_count
          * 
          * 问题需要
          * title
@@ -51,6 +57,26 @@ export default {
          * 
          * */
         displayData: {}
+    },
+    data () {
+        return {
+            like_count: this.displayData.like_count
+        }
+    },
+    methods: {
+        onClickLike () {
+            userLikeAnswer.create({
+                answer_id: this.displayData.ans_id,
+                user_id: this.userId
+            }, res => {
+                this.like_count ++
+            })
+
+        }
+    }, computed: {
+        ...mapGetters([
+            'userId'
+        ])
     }
 }
 </script>
@@ -94,6 +120,7 @@ font-size: 15px;
     margin: 7px;
     margin-left: 0;
     cursor: pointer;
+    border: none;
         }
     }
 </style>
