@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav-bar></nav-bar>
+    <nav-bar :headUrl="headUrl"></nav-bar>
     <div style="height:62px">&nbsp;</div>
     <router-view></router-view>
   </div>
@@ -18,8 +18,18 @@ export default {
     NavBar,
     Home
   },
+  data () {
+    return {
+      headUrl: null
+    }
+  },
   mounted () {
-    verifyTokenAndSaveId()
+    verifyTokenAndSaveId(() => {
+      //验证token成功之后，
+      user.show(this.userId, res => {
+          this.headUrl = res.data[0].head_url
+      })
+    })
   },
   methods: {
     ...mapMutations([

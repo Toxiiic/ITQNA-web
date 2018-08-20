@@ -1,7 +1,7 @@
 <template>
     <div class="answer">
         <div class="author">
-            <img class="avatar" src="https://pic1.zhimg.com/50/v2-b5d3d6f8403bbb284b6afb876b134527_xs.jpg 2x" alt="">
+            <img class="avatar" :src="displayData.user_head_url" alt="">
             <span class="name">{{displayData.user_name}}</span>
             <span class="motto">{{displayData.user_motto}}</span>
         </div>
@@ -86,7 +86,11 @@ export default {
             margin: 13px;
         .author {
             .avatar {
-
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    border-radius: 3px;
+    margin-right: 10px;
             }
             .name {
 font-size: 15px;

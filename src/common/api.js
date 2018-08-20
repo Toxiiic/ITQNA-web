@@ -12,14 +12,11 @@ export const user = {
     getLoginState () {
         return false
     },
-    getUserInfo (id) {
-        axios.get(host + `/api/users/${id}`, {
-            headers: {
-                'Authorization': `bearer ${getToken()}`
-            }
-        }).then(res => {
-            return res
-        })
+    /**
+     * 这个仅返回公开信息，敏感信息不能这样给
+    */
+    show (id, cb) {
+        axios.get(host + `/api/users/${id}`).then(res => cb(res))
     },
     login (formFieldsVal, cb) {
         axios.post(host + '/login', formFieldsVal, {

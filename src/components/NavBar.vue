@@ -27,7 +27,7 @@
             </router-link> -->
             <a-dropdown>
                 <a class="ant-dropdown-link float-right" href="#">
-                    <img class="avatar" src="@/assets/logo.png" alt="">
+                    <img class="avatar" :src="headUrl" alt="">
                 </a>
                 <a-menu slot="overlay" style="width:200px">
                     <a-menu-item>
@@ -43,20 +43,26 @@
 </template>
 
 <script>
-import { question } from "@/common/api";
+import { question, user } from "@/common/api";
 import { logout } from "@/common/util";
 import { mapGetters } from "vuex";
 
 export default {
   components: {},
+  props: [
+      'headUrl'
+  ],
   data() {
     return {
       confirmLoading: false,
-      questionModalOpen: false
+      questionModalOpen: false,
+      userData: {}
     };
   },
   mounted () {
-
+    //   user.show(this.userId, res => {
+    //       this.userData = res.data[0]
+    //   })
   },
   methods: {
     submitQuestion () {
@@ -94,8 +100,10 @@ export default {
   }
   .avatar {
     width: 36px;
-    // float: right;
+    height: 36px;
     margin: 5px;
+    object-fit: cover;
+    border-radius: 3px;
   }
   input.search-input {
     margin: 0 10px 0 100px;

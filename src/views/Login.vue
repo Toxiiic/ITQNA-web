@@ -68,9 +68,7 @@ export default {
     };
   },
   mounted () {
-    user.getUserInfo(3)
   },
-
   methods: {
     onSubmitLogin() {
         user.login(this.loginForm.getFieldsValue(), (res) => {
@@ -85,7 +83,7 @@ export default {
     onSubmitRegister() {
       console.log(this.registerForm.getFieldsValue());
       user.register(this.registerForm.getFieldsValue(), res => {
-          
+
       })
     },
     ...mapMutations([
