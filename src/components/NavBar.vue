@@ -48,6 +48,10 @@
                     </a-menu-item>
                 </a-menu>
             </a-dropdown>
+
+            <router-link to="/login" v-if="userId=null">
+                <a-button>登陆</a-button>
+            </router-link>
         </div>
     </div>
 </template>
